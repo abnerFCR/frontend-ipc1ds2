@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+</head>
+<body>
+    <br>
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre">
+    <br>
+    <label for="edad">Edad:</label>
+    <input type="text" name="edad" id="edad">
+    <br>
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password">
+    <br>
+    <button type="button" value="crear" onclick="crear()">Crear Usuario</button>
+
+    <br>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/bRpr6ZYNREA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <script>
+        function crear(){
+            let nombre = document.querySelector("#nombre").value;
+            let edad = document.querySelector("#edad").value;
+            let username = document.querySelector("#username").value;
+            let password = document.querySelector("#password").value;
+
+            let nuevoUsuario ={
+                'nombre':nombre,
+                'edad':edad,
+                'username':username,
+                'password':password
+            }
+            
+            fetch('http://3.138.122.134:3000/usuarios',{
+                method: 'POST',
+                body:JSON.stringify(nuevoUsuario),
+                headers:{
+                    'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin':'*'
+                }
+            }).then(res=>res.json()).catch(err=>{
+                console.log('Ocurrio un error');
+            }).then(response=>{
+                alert(response.mensaje);
+            });
+        }
+    </script>
+</body>
+</html>
